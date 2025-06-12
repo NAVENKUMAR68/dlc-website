@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Digital Literacy Course (DLC)</title>
+<style>
+  /* Google Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+  
+  :root {
+    --primary-color: #06030c;
+    --secondary-color: #22c55e;
+    --accent-color: #f97316;
+    --background-color: #f0f4fd;
+    --card-background: #ffffff;
+    --text-color: #1e293b;
+    --font-family: 'Inter', sans-serif;
+    --border-radius: 16px;
+    --transition: 0.3s ease;
+  }
+
+  /* Reset / Base */
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: var(--font-family);
+    background: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.6;
+    font-size: 18px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  h1, h2, h3 {
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+  }
+  p {
+    margin-bottom: 1rem;
+  }
+  a {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+  a:hover, a:focus {
+    text-decoration: underline;
+  }
+
+  /* Header */
+  header {
+    background: linear-gradient(135deg, #6c5ce7, #00b894);
+    color: white;
+    padding: 1.5rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+  }
+
+  header .header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  header h1 {
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+  }
+
+  nav ul {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav li {
+    font-weight: 600;
+  }
+
+  nav li a {
+    color: white;
+    font-size: 1rem;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color var(--transition);
+    display: flex;
+    align-items: center;
+  }
+  nav li a:hover, nav li a:focus {
+    background: rgba(255 255 255 / 0.3);
+    outline: none;
+  }
+  nav li a .material-icons {
+    margin-right: 6px;
+    font-size: 20px;
+  }
+
+  /* Main container */
+  main {
+    flex-grow: 1;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    width: 100%;
+  }
+  section {
+    margin-bottom: 3rem;
+  }
+
+  /* Home Section */
+  #home p {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin-top: 1rem;
+  }
+
+  /* Tutorials Section */
+  #tutorials h2 {
+    margin-bottom: 1rem;
+  }
+  .tutorial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .tutorial-card {
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 10px rgb(92 106 196 / 0.15);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition);
+  }
+  .tutorial-card:hover, .tutorial-card:focus-within {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgb(92 106 196 / 0.30);
+  }
+  .tutorial-image {
+    width: 100%;
+    height: 150px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+  }
+  .tutorial-card h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+  }
+  .tutorial-description {
+    flex-grow: 1;
+    margin-bottom: 1rem;
+    color: #475569;
+  }
+  .btn-tutorial {
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color var(--transition);
+  }
+  .btn-tutorial:hover, .btn-tutorial:focus {
+    background: var(--secondary-color);
+    outline: none;
+  }
+
+  /* AI Chat Section */
+  #ai-chat {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 12px rgb(0 0 0 / 0.1);
+  }
+  #ai-chat h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+  #chatbot {
+    height: 320px;
+    background: #eef4fd;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    color: #64748b;
+    text-align: center;
+    padding: 1rem;
+    user-select: none;
+  }
+
+  /* Feedback Section */
+  #feedback h2 {
+    margin-bottom: 1rem;
+  }
+  #feedback form {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 10px rgb(0 0 0 / 0.1);
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+  }
+  #feedback label {
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+  #feedback input[type="text"],
+  #feedback textarea,
+  #feedback select {
+    padding: 10px;
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-family: var(--font-family);
+    resize: vertical;
+  }
+  #feedback textarea {
+    min-height: 100px;
+  }
+  #feedback button {
+    background: var(--accent-color);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    font-size: 1.1rem;
+    transition: background-color var(--transition);
+  }
+  #feedback button:hover, #feedback button:focus {
+    background: #d35400;
+    outline: none;
+  }
+  #feedback .success-message {
+    color: green;
+    font-weight: 600;
+    margin-top: 0.5rem;
+  }
+
+  /* Accessibility Controls */
+  #accessibility-controls {
+    background: white;
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 10px rgb(0 0 0 / 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+  }
+  #accessibility-controls label {
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+  #accessibility-controls button,
+  #accessibility-controls select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    font-size: 1rem;
+    cursor: pointer;
+    background: white;
+    font-family: var(--font-family);
+    transition: background-color var(--transition);
+  }
+  #accessibility-controls button:hover,
+  #accessibility-controls select:hover {
+    background: #f3f4f6;
+  }
+  #accessibility-controls button:focus,
+  #accessibility-controls select:focus {
+    outline: 3px solid var(--primary-color);
+  }
+
+  /* Responsive */
+  @media(max-width: 640px) {
+    nav ul {
+      flex-direction: column;
+      gap: 12px;
+    }
+    header .header-container {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+    main {
+      margin: 1rem auto;
+      padding: 0 1rem;
+    }
+  }
+</style>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+</head>
+<body>
+
+<header>
+  <div class="header-container" role="banner">
+    <h1>Empowering Digital Literacy!</h1>
+    <nav aria-label="Primary navigation">
+      <ul>
+        <li><a href="#home"><span class="material-icons" aria-hidden="true">home</span> Home</a></li>
+        <li><a href="#tutorials"><span class="material-icons" aria-hidden="true">school</span> Tutorials</a></li>
+        <li><a href="#ai-chat"><span class="material-icons" aria-hidden="true">chat</span> AI Chat</a></li>
+        <li><a href="#feedback"><span class="material-icons" aria-hidden="true">feedback</span> Feedback</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section id="home" tabindex="-1" aria-label="Home section">
+    <h2>Welcome to the Digital Literacy Course</h2>
+    <p>Your friendly space to learn essential digital tools like WhatsApp, Paytm, and Google Maps with easy tutorials designed for parents and elderly users.</p>
+  </section>
+
+  <section id="tutorials" tabindex="-1" aria-label="Tutorials section">
+    <h2>Tutorials</h2>
+    <div class="tutorial-grid">
+      <article class="tutorial-card" tabindex="0" aria-labelledby="whatsapp-title">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d5944eba-0093-408d-967c-2bd0c9a130e3.png" alt="Screenshot of WhatsApp app on a phone" class="tutorial-image" loading="lazy"/>
+        <h3 id="whatsapp-title">WhatsApp</h3>
+        <p class="tutorial-description">Learn to send messages, make calls, and share photos on WhatsApp.</p>
+        <button class="btn-tutorial" aria-label="Watch WhatsApp tutorial video">Watch Tutorial</button>
+      </article>
+
+      <article class="tutorial-card" tabindex="0" aria-labelledby="paytm-title">
+        <img src="paytm.png" alt="Paytm app screenshot" class="tutorial-image" loading="lazy"/>
+        <h3 id="paytm-title">Paytm</h3>
+        <p class="tutorial-description">Step-by-step guide to making payments and transferring money with Paytm.</p>
+       <button class="btn-tutorial" aria-label="Watch Paytm tutorial video">Watch Tutorial</button>
+      </article>
+
+
+      <article class="tutorial-card" tabindex="0" aria-labelledby="googlemaps-title">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d9dd4a51-3897-40a0-8a9b-f5d4b29033e2.png" alt="Screenshot of Google Maps navigation" class="tutorial-image" loading="lazy"/>
+        <h3 id="googlemaps-title">Google Maps</h3>
+        <p class="tutorial-description">Learn how to find places, get directions, and explore using Google Maps.</p>
+        <button class="btn-tutorial" aria-label="Watch Google Maps tutorial video">Watch Tutorial</button>
+      </article>
+    </div>
+  </section>
+
+  <section id="ai-chat" tabindex="-1" aria-label="AI chatbot section">
+    <h2>Chat with DigiBuddy</h2>
+    <div id="chatbot" aria-live="polite" role="region" aria-label="Chatbot answering FAQs">
+      DigiBuddy is here to answer your questions! (Chatbot integration coming soon.)
+    </div>
+  </section>
+
+  <section id="accessibility-controls" aria-label="Accessibility controls">
+    <label for="font-size-select">Adjust Font Size:</label>
+    <select id="font-size-select" aria-describedby="font-size-desc">
+      <option value="16">Small</option>
+      <option value="18" selected>Medium</option>
+      <option value="22">Large</option>
+      <option value="26">Extra Large</option>
+    </select>
+    <span id="font-size-desc" class="sr-only">Select font size for the website content</span>
+
+    <button id="toggle-voice" aria-pressed="false" aria-label="Enable or disable voice commands">Toggle Voice Commands</button>
+
+    <label for="language-select">Language:</label>
+    <select id="language-select" aria-describedby="language-desc">
+      <option value="en" selected>English</option>
+      <option value="hi">Hindi</option>
+      <option value="es">Spanish</option>
+      <option value="fr">French</option>
+    </select>
+    <span id="language-desc" class="sr-only">Select website language</span>
+  </section>
+  
+  <section id="feedback" tabindex="-1" aria-label="Feedback section">
+    <h2>Feedback</h2>
+    <form id="feedback-form" aria-describedby="feedback-desc">
+      <p id="feedback-desc">We value your suggestions! Please provide your name and feedback below.</p>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" autocomplete="name" placeholder="Your name" required />
+
+      <label for="message">Feedback:</label>
+      <textarea id="message" name="message" placeholder="Write your feedback here" required></textarea>
+
+      <button type="submit">Submit</button>
+
+      <div class="success-message" aria-live="polite" role="alert" style="display:none;">Thank you for your feedback!</div>
+    </form>
+  </section>
+</main>
+
+<footer role="contentinfo" style="text-align:center; padding: 1rem 0; background:#162447; color: #f0f0f0;">
+  &copy; 2023 Digital Literacy Course (DLC) - Designed for Everyone
+</footer>
+
+<script>
+  // Font size adjustment
+  const fontSizeSelect = document.getElementById('font-size-select');
+  fontSizeSelect.addEventListener('change', () => {
+    document.body.style.fontSize = fontSizeSelect.value + 'px';
+  });
+
+  // Voice command toggle (basic placeholder)
+  const voiceButton = document.getElementById('toggle-voice');
+  let voiceActive = false;
+  voiceButton.addEventListener('click', () => {
+    voiceActive = !voiceActive;
+    voiceButton.setAttribute('aria-pressed', voiceActive.toString());
+    voiceButton.textContent = voiceActive ? 'Disable Voice Commands' : 'Enable Voice Commands';
+    // Here you could add Web Speech API integration
+    alert('Voice command feature is under development.');
+  });
+
+  // Language selector placeholder
+  const languageSelect = document.getElementById('language-select');
+  languageSelect.addEventListener('change', () => {
+    alert('Language switching feature is under development. Selected: ' + languageSelect.value);
+  });
+
+  // Feedback form submission
+  const feedbackForm = document.getElementById('feedback-form');
+  const successMsg = feedbackForm.querySelector('.success-message');
+
+  feedbackForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // Normally here you'd send data to a server or API
+    successMsg.style.display = 'block';
+    setTimeout(() => successMsg.style.display = 'none', 4000);
+    feedbackForm.reset();
+  });
+</script>
+
+</body>
+</html>
+
